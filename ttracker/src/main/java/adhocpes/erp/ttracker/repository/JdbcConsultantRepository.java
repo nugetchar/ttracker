@@ -7,9 +7,11 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public class JdbcConsultantRepository implements ConsultantRepository {
+	
 	private JdbcTemplate jdbcTemplate;
 	
 	public JdbcConsultantRepository(DataSource dataSource){
+		
 		this.jdbcTemplate = new JdbcTemplate(dataSource);
 	}
 	

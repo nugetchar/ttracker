@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.ImportResource;
 import org.springframework.context.support.FileSystemXmlApplicationContext;
 import org.springframework.core.env.Environment;
 
@@ -24,10 +25,15 @@ import adhocpes.erp.ttracker.services.TimeSheetServiceImpl;
 
 
 @Configuration
+@ImportResource("classpath:/META-INF/applicationContext.xml")
 public class AppConfig {
 	
 	@Autowired
 	private Environment e;
+	
+	@Autowired
+	DataSource dataSource;
+	
 	
 	@Bean
 	public ConsultantService consultantService(){
@@ -55,13 +61,7 @@ public class AppConfig {
 	}
 	
 	@Bean
-	public DataSource dataSource(){
-		ApplicationContext context = new FileSystemXmlApplicationContext("./src/main/resources/applicationContext.xml");
-		return context.getBean("dataSource",DataSource.class);
-	}
-	
-	@Bean
 	public ConsultantRepository jdbcConsultantRepository(){
-		return new JdbcConsultantRepository(dataSource());
+		return new JdbcConsultantRepository(dataSource);
 	}
 }
