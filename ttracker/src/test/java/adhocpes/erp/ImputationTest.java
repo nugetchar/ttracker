@@ -7,14 +7,11 @@ import org.joda.time.DateTime;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.context.ApplicationContext;
-import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.support.FileSystemXmlApplicationContext;
 
 import adhocpes.erp.ref.model.Consultant;
-import adhocpes.erp.ttracker.config.AppConfig;
 import adhocpes.erp.ttracker.domain.Imputation;
 import adhocpes.erp.ttracker.domain.Tache;
-import adhocpes.erp.ttracker.services.ProjectService;
 
 
 public class ImputationTest {

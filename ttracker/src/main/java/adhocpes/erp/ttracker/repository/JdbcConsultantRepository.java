@@ -17,7 +17,6 @@ public class JdbcConsultantRepository implements ConsultantRepository {
 	private JdbcTemplate jdbcTemplate;
 	
 	public JdbcConsultantRepository(DataSource dataSource){
-		
 		this.jdbcTemplate = new JdbcTemplate(dataSource);
 	}
 	
@@ -27,6 +26,7 @@ public class JdbcConsultantRepository implements ConsultantRepository {
 		return jdbcTemplate.queryForObject(sql,Integer.class);
 	}
 	
+	@SuppressWarnings("unused")
 	private class ConsultantMapper implements RowMapper<Consultant> {
 
 		@Override

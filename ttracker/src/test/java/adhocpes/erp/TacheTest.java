@@ -2,7 +2,6 @@ package adhocpes.erp;
 
 import static org.junit.Assert.*;
 
-import java.util.GregorianCalendar;
 
 import org.joda.time.DateTime;
 import org.junit.Before;

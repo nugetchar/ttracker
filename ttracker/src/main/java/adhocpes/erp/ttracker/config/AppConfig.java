@@ -3,15 +3,15 @@ package adhocpes.erp.ttracker.config;
 import javax.sql.DataSource;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.ImportResource;
-import org.springframework.context.support.FileSystemXmlApplicationContext;
 import org.springframework.core.env.Environment;
 
 import adhocpes.erp.ttracker.repository.ConsultantRepository;
+import adhocpes.erp.ttracker.repository.HibernateTacheRepository;
 import adhocpes.erp.ttracker.repository.JdbcConsultantRepository;
+import adhocpes.erp.ttracker.repository.TacheRepository;
 import adhocpes.erp.ttracker.services.ConsultantServiceImpl;
 import adhocpes.erp.ttracker.services.ConsultantService;
 import adhocpes.erp.ttracker.services.ImputationService;
@@ -34,6 +34,10 @@ public class AppConfig {
 	@Autowired
 	DataSource dataSource;
 	
+	
+	public AppConfig(){
+		
+	}
 	
 	@Bean
 	public ConsultantService consultantService(){
@@ -63,5 +67,10 @@ public class AppConfig {
 	@Bean
 	public ConsultantRepository jdbcConsultantRepository(){
 		return new JdbcConsultantRepository(dataSource);
+	}
+	
+	@Bean
+	public TacheRepository hibernateTacheRepository(){
+		return new HibernateTacheRepository();
 	}
 }

@@ -1,25 +1,63 @@
 package adhocpes.erp.ttracker.domain;
 
 
+import java.io.Serializable;
+import java.sql.Timestamp;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
+
+import org.hibernate.annotations.AccessType;
 import org.joda.time.DateTime;
 
-public class Tache {
+@Entity
+@Table(name="TACHE")
+public class Tache implements Serializable{
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -6536608948385686269L;
+
+	@Id
+	@Column(name="nom")
+	@NotNull
+	@AccessType("property")
 	private String nom;
+	
+	@Column(name="fini")
+	@NotNull
+	@AccessType("property")
 	private boolean fini;
 	
-	
+	@Column(name="date_debut")
+	@NotNull
+	@AccessType("property")
 	private DateTime date_debut;
 
 	public Tache(){
 		super();
 	}
 
+	public Tache(String nom, boolean fini) {
+		this();
+		this.nom = nom;
+		this.fini = fini;
+		this.date_debut = today();
+	}
+	
 	public Tache(String nom, boolean fini, DateTime date_debut) {
 		this();
 		this.nom = nom;
 		this.fini = fini;
 		this.date_debut = date_debut;
+	}
+	
+	private DateTime today(){
+		return DateTime.now();
 	}
 	
 	public String getNom() {
