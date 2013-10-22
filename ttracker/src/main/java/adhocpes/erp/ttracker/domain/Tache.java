@@ -2,7 +2,6 @@ package adhocpes.erp.ttracker.domain;
 
 
 import java.io.Serializable;
-import java.sql.Timestamp;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -10,7 +9,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
-import org.hibernate.annotations.AccessType;
+import org.hibernate.annotations.Type;
 import org.joda.time.DateTime;
 
 @Entity
@@ -25,17 +24,15 @@ public class Tache implements Serializable{
 	@Id
 	@Column(name="nom")
 	@NotNull
-	@AccessType("property")
 	private String nom;
 	
 	@Column(name="fini")
 	@NotNull
-	@AccessType("property")
 	private boolean fini;
 	
 	@Column(name="date_debut")
 	@NotNull
-	@AccessType("property")
+	@Type(type="org.jadira.usertype.dateandtime.joda.PersistentDateTime")
 	private DateTime date_debut;
 
 	public Tache(){
