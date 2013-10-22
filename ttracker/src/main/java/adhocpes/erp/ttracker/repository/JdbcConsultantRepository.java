@@ -16,6 +16,10 @@ public class JdbcConsultantRepository implements ConsultantRepository {
 	
 	private JdbcTemplate jdbcTemplate;
 	
+	public JdbcConsultantRepository(){
+		
+	}
+	
 	public JdbcConsultantRepository(DataSource dataSource){
 		this.jdbcTemplate = new JdbcTemplate(dataSource);
 	}

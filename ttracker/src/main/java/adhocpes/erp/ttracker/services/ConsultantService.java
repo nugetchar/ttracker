@@ -12,7 +12,6 @@ public interface ConsultantService {
 	public List<Consultant> getAllConsultants();
 	public List<Consultant> getConsultantsForProject(Project p);
 	public Consultant getConsultantForTache(Tache t);
-	
 	public Consultant getConsultant(String nom);
 	
 }
