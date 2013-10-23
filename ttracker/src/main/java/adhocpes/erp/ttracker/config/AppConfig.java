@@ -20,7 +20,7 @@ import adhocpes.erp.ttracker.services.TacheService;
 import adhocpes.erp.ttracker.services.TimeSheetService;
 import adhocpes.erp.ttracker.services.ImputationServiceImpl;
 import adhocpes.erp.ttracker.services.ProjectServiceImpl;
-import adhocpes.erp.ttracker.services.TacheServiceImpl;
+import adhocpes.erp.ttracker.services.HibernateTacheService;
 import adhocpes.erp.ttracker.services.TimeSheetServiceImpl;
 
 
@@ -45,8 +45,8 @@ public class AppConfig {
 	}
 	
 	@Bean
-	public TacheService tacheService(){
-		return new TacheServiceImpl();
+	public TacheService hibernateTacheService(){
+		return new HibernateTacheService();
 	}
 	
 	@Bean

@@ -1,0 +1,81 @@
+Mise à jour du référentiel:
+
+Existant:
+================================================
+Il y a pour le moment trois classes métiers, et trois repositories respectifs qui sont Consultant, Client et Project. Une description technique est donnée ci-dessous.
+
+Classes
+-------------------------
+	adhocpes.erp.ref.model:
+------------
+	Consultant
+		consultantId
+		consultantName
+		manager
+		password
+
+	Client
+		clientId
+		clientName
+
+	Project
+		projectId
+		projectName
+
+------------
+	adhocpes.erp.ref.repository:
+------------
+	ClientRepository
+		Client findByClientId (Long clientId)
+		Client findByClientName (String clientName)
+		List<Client> findAll()
+
+	ConsultantRepository
+		Consultant findByConsultantName(String consultantName)
+
+	ProjectRepository
+		Project findByProjectName(String projectName)
+------------
+
+
+Reste à faire:
+================================================
+Ces classes sont à modifier par l'ajout d'attributs et/ou de méthodes selon les besoins de chaque projet de l'ERP.
+
+Classes
+-------------------------
+	adhocpes.erp.ref.model:
+------------
+	Consultant
+		consultantFirstName
+
+	Client
+
+
+	Project
+
+
+------------
+	adhocpes.erp.ref.repository:
+------------
+	ClientRepository
+
+
+	ConsultantRepository
+		List<Consultant> findByConsultantName(String consultantName)
+		Consultant findByConsultantFirstnameName(String consultantFistrname, String consultantName)
+		Consultant findByConsultantId(long consultantId)
+		List<Consultant> findAll() 
+		List<Consultant> findConsultantsByProject(Project p)
+
+	ProjectRepository
+		Project findByProjectName(String projectName)
+		Project findByProjectId(long projectId)
+		List<Project> findAll()
+
+------------
+
+
+Comment réaliser le reste à faire
+================================================
+Pour la base de données, nous allons mettre à jour les classes java du référentiel. Qing s'occupera ensuite de modifier sa base de données en conséquences.

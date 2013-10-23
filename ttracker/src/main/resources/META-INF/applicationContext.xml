@@ -7,7 +7,7 @@
 	http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.0.xsd">
 
 	<context:annotation-config />
-	<context:component-scan base-package="adhocpes.erp.ttracker" />
+	<context:component-scan base-package="adhocpes.erp.ttracker,adhocpes.erp.ref.model" />
 	<bean
 		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
 		<property name="locations">
@@ -27,7 +27,7 @@
 	</bean>
 
 	<!-- TransactionManager, specific for transactions -->
-	<tx:annotation-driven/>
+	<tx:annotation-driven />
 	<bean id="transactionManager"
 		class="org.springframework.orm.hibernate4.HibernateTransactionManager">
 		<property name="sessionFactory" ref="sessionFactory" />
@@ -39,8 +39,17 @@
 		<property name="dataSource" ref="dataSource" />
 		<property name="annotatedClasses">
 			<list>
-			<value>adhocpes.erp.ttracker.domain.Tache</value>
+				<value>adhocpes.erp.ttracker.domain.Tache</value>
+				<value>adhocpes.erp.ref.model.Project</value>
+				<value>adhocpes.erp.ref.model.Consultant</value>
 			</list>
+		</property>
+		<property name="hibernateProperties">
+			<props>
+				<prop key="hibernate.dialect">org.hibernate.dialect.MySQLDialect</prop>
+				<prop key="hibernate.show_sql">true</prop>
+				<prop key="hibernate.hbm2ddl.auto">update</prop>
+			</props>
 		</property>
 	</bean>
 

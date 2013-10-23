@@ -37,6 +37,7 @@ public class HibernateTacheRepositoryTest {
 	
 	@Test
 	public final void testUpdateTache() {
+		testInsertTache();
 		Tache t = test.getBean("tacheTest",Tache.class);
 		t.setFini(true);
 		dao.updateTache(t);
@@ -44,13 +45,13 @@ public class HibernateTacheRepositoryTest {
 
 	@Test
 	public final void testGetTache() {
-		Tache t = dao.getTache(test.getBean("tacheTest",Tache.class).getNom());
+		Tache t = dao.findByTacheName(test.getBean("tacheTest",Tache.class).getNom());
 		assertTrue(t!=null);
 	}
 
 	@Test
 	public final void testGetAllTaches() {
-		List<Tache> taches = dao.getAllTaches();
+		List<Tache> taches = dao.findAll();
 		assertTrue(taches!=null);
 	}
 	

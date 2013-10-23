@@ -13,22 +13,17 @@ public class ProjectServiceImpl implements ProjectService {
 
 	
 	@Override
-	public List<Tache> getAllProject() {
+	public List<Project> getAllProject() {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public List<Project> getProjectForTache(Tache t) {
+	public Project getProjectForTache(Tache t) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
-	@Override
-	public List<Tache> getProjectForConsultants(List<Consultant> c) {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
 	@Override
 	public Project getProject(String nom) {

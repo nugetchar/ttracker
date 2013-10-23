@@ -8,9 +8,13 @@ import adhocpes.erp.ttracker.domain.Tache;
 
 public interface TacheService {
 	//Retrieving taches
-	public List<Tache> getAllTaches();
-	public List<Tache> getTachesForProject(Project p);
-	public List<Tache> getTachesForConsultant(Consultant c);
+	public List<Tache> findAll();
+	public List<Tache> findTachesByProject(Project p);
+	public List<Tache> findTacheByConsultant(Consultant c);
+	public Tache findTacheByName(String nom);
 	
-	public Tache getTache(String nom);
+	//Inserting, updating and deleting taches
+	public void insertTache(Tache t);
+	public void updateTache(Tache t);
+	void deleteTache(Tache t);
 }
