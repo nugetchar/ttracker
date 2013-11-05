@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+	http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd">
+
+	<context:annotation-config />
+	<context:component-scan base-package="adhocpes.erp.timetracker.domain, adhocpes.erp.domain, adhocpes.erp.timetracker.services" />
+	<bean id="csl" class="adhocpes.erp.domain.Consultant" p:prenom="Thomas"
+		p:nom="Toledo" p:manager="true" p:password="pamplemousse"
+		p:email="thomas.toledo@adhoc-pes.com">
+		<property name="projetResponsabilities">
+			<list>
+				<ref bean="prj" />
+			</list>
+		</property>
+	</bean>
+
+
+
+	<bean id="clt" class="adhocpes.erp.domain.Client" p:nom="GIP-MDS"
+		p:description="Groupement d'intérêts publique" p:secteur="publique"
+		p:adresse="Paris">
+		<property name="projets">
+			<list>
+				<ref bean="prj" />
+			</list>
+		</property>
+	</bean>
+
+	<bean id="prj" class="adhocpes.erp.domain.Projet" p:nom="ARPEJ"
+		p:client-ref="clt" p:consultantResponsable-ref="csl">
+	</bean>
+	<bean id="prj2" class="adhocpes.erp.domain.Projet" p:nom="DUCK"
+		p:client-ref="clt" p:consultantResponsable-ref="csl">
+	</bean>
+
+
+	<!-- Ttracker -->
+	<bean id="date_debut_tache" class="org.joda.time.LocalDate">
+		<constructor-arg index="0" type="int" value="2013" />
+		<constructor-arg index="1" type="int" value="10" />
+		<constructor-arg index="2" type="int" value="23" />
+	</bean>
+
+	<bean id="tacheFinie" class="adhocpes.erp.timetracker.domain.Tache" p:fini="true"
+		p:nom="Révision de la base" p:projet-ref="prj" p:date_debut-ref="date_debut_tache">
+		<property name="imputations">
+			<list>
+				<ref bean="imputationTest" />
+			</list>
+		</property>
+	</bean>
+
+	<bean id="jour_imputation" class="org.joda.time.LocalDate">
+		<constructor-arg index="0" type="int" value="2013" />
+		<constructor-arg index="1" type="int" value="10" />
+		<constructor-arg index="2" type="int" value="29" />
+	</bean>
+	<bean id="imputationTest" class="adhocpes.erp.timetracker.domain.Imputation"
+		p:charge="1" p:consultant-ref="csl" p:tache-ref="tacheFinie"
+		p:jour-ref="jour_imputation">
+	</bean>
+</beans>
