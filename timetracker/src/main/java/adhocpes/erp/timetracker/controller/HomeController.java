@@ -25,7 +25,7 @@ public class HomeController {
 	}
 	
 	@RequestMapping(value="/login", method=RequestMethod.GET)
-	public String login(Model model){
+	public String login(Model model, @RequestParam String login, @RequestParam String password){
 		//TODO VERIFICATION DE CONNEXION
 		return "home";
 	}
