@@ -66,12 +66,12 @@ public class ImputationServiceImpl implements ImputationService {
 		return imputationRepository.findByTache(t);
 	}
 
-	public List<Imputation> getByDateConsultant(LocalDate date, Consultant c) {
+	public Imputation getByDateConsultant(LocalDate date, Consultant c) {
 		// TODO Auto-generated method stub
 		return imputationRepository.findByDateConsultant(date, c);
 	}
 
-	public List<Imputation> getByDateProjet(LocalDate date, Projet p) {
+	public Imputation getByDateProjet(LocalDate date, Projet p) {
 		// TODO Auto-generated method stub
 		return imputationRepository.findByDateProjet(date, p);
 	}

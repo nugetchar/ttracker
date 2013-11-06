@@ -32,10 +32,9 @@ public interface ImputationRepository  extends JpaRepository<Imputation,Long>{
 	List<Imputation> findByConsultant(Consultant consultant);
 	List<Imputation> findByTache(Tache tache);
 	@Query(findByDateConsultant)
-	List<Imputation> findByDateConsultant(@Param("date")LocalDate date, @Param("consultant")Consultant consultant);
+	Imputation findByDateConsultant(@Param("date")LocalDate date, @Param("consultant")Consultant consultant);
 	@Query(findByDateProjet)
-	List<Imputation> findByDateProjet(@Param("date")LocalDate date, @Param("projet")Projet projet);
-	
+	Imputation findByDateProjet(@Param("date")LocalDate date, @Param("projet")Projet projet);
 	@Query(findByDateTache)
 	Imputation findByDateTache(@Param("date")LocalDate date, @Param("tache")Tache tache);
 

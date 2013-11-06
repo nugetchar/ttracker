@@ -22,8 +22,8 @@ public interface ImputationService {
 	List<Imputation> getImputationsByConsultant(Consultant c);
 	List<Imputation> getImputationsByTache(Tache t);
 
-	List<Imputation> getByDateConsultant(LocalDate date, Consultant c);
-	List<Imputation> getByDateProjet(LocalDate date, Projet p);
+	Imputation getByDateConsultant(LocalDate date, Consultant c);
+	Imputation getByDateProjet(LocalDate date, Projet p);
 	Imputation getByDateTache(LocalDate date, Tache t);
 
 }
