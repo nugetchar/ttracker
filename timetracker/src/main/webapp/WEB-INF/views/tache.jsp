@@ -14,7 +14,7 @@
 </head>
 <body>
 	<!-- Aller à la gestion des tâches -->
-	<a href="./login" class="rLink" tabindex="3">Go to timesheet</a></label><label>
+	<a href="./login" class="rLink">Go to timesheet</a></label><label>
 
 	<!-- Affichage de toutes les tâches et de leur gestion-->
 	<div id="jqgrid">

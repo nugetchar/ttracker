@@ -4,14 +4,17 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import adhocpes.erp.domain.Consultant;
 import adhocpes.erp.domain.Projet;
+import adhocpes.erp.service.ProjetService;
 import adhocpes.erp.timetracker.domain.Imputation;
 import adhocpes.erp.timetracker.domain.Tache;
 import adhocpes.erp.timetracker.repository.TacheRepository;
 
 @Service
+@Transactional
 public class TacheServiceImpl implements TacheService {
 
 	@Autowired
@@ -22,18 +25,22 @@ public class TacheServiceImpl implements TacheService {
 		
 	}
 	
-	public void insertTache(Tache t) {
+	public Tache insertTache(Tache t, long projetId, ProjetService serviceProj) {
 		// TODO Auto-generated method stub
-		tacheRepository.save(t);
+		Projet p = serviceProj.getById(projetId);
+		t.setprojet(p);
+		return tacheRepository.save(t);
 	}
 
-	public void deleteTache(Tache t) {
+	public void deleteTache(long id) {
 		// TODO Auto-generated method stub
-		tacheRepository.delete(t);
+		tacheRepository.delete(id);
 	}
 
-	public void updateTache(Tache t) {
+	public void updateTache(Tache t, long projetId, ProjetService serviceProj) {
 		// TODO Auto-generated method stub
+		Projet p = serviceProj.getById(projetId);
+		t.setprojet(p);
 		tacheRepository.save(t);
 	}
 

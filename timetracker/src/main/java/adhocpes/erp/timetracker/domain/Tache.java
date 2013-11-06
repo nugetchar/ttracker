@@ -1,5 +1,6 @@
 package adhocpes.erp.timetracker.domain;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -82,10 +83,14 @@ public class Tache{
 			this.dateDebut = date_debut;
 	}
 
-	public Tache(String nom, boolean fini, LocalDate date_debut, Projet projet, List<Imputation> imputations){
+	public Tache(String nom, boolean fini, LocalDate date_debut, Projet projet){
 		this(nom,fini,date_debut);
-		this.imputations = imputations;
+		this.imputations = new ArrayList<Imputation>();
 		this.projet = projet;
+	}
+	public Tache(String nom, boolean fini, LocalDate date_debut, Projet projet, List<Imputation> imputations){
+		this(nom,fini,date_debut,projet);
+		this.imputations = imputations;
 	}
 
 	private LocalDate today(){
@@ -133,14 +138,19 @@ public class Tache{
 	}
 
 	public String toString(){
-		return "{\"projet\":\""+this.projet.getNom()+"\",\"tache\":\""+this.nom+
-		"\",\"date de début\":\""+this.dateDebut+"\",\"fini\":\""+this.fini+
-		"\",\"temps de travail passé\":\""+this.temps_passe()+"\"}";
+		return "{\"id\":\""+this.id+"\",\"projet\":\""+this.projet.getNom()+"\",\"tache\":\""+this.nom+
+		"\",\"date\":\""+this.format_date()+"\",\"fini\":\""+this.isItFinish()+
+		"\",\"tempstravail\":\""+this.temps_passe()+"\"}";
 	}
 
-	private String format_date_debut(){
-		return this.dateDebut.dayOfMonth() + "/" + this.dateDebut.monthOfYear() + 
-				"/" + this.dateDebut.year();
+	private String format_date(){
+		
+		return this.dateDebut.getYear() + "." + this.dateDebut.getMonthOfYear() + "." + this.dateDebut.getDayOfMonth();
+	}
+	private String isItFinish(){
+		if(fini)
+			return "oui";
+		return "non";
 	}
 
 	private String temps_passe(){
@@ -148,6 +158,7 @@ public class Tache{
 		int h,m;
 		for(Imputation i : this.imputations)
 			res += i.getCharge();
+		
 		h = (int)res;
 		m = (int)((res - h)*10)%60;
 		h += ((res - h)*10)/60;

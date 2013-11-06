@@ -5,6 +5,7 @@ import java.util.List;
 import org.joda.time.LocalDate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import adhocpes.erp.domain.Consultant;
 import adhocpes.erp.domain.Projet;
@@ -14,6 +15,7 @@ import adhocpes.erp.timetracker.domain.Tache;
 import adhocpes.erp.timetracker.repository.ImputationRepository;
 
 @Service
+@Transactional
 public class ImputationServiceImpl implements ImputationService {
 	
 	@Autowired
@@ -27,9 +29,9 @@ public class ImputationServiceImpl implements ImputationService {
 		imputationRepository.save(i);
 	}
 
-	public void deleteImputation(Imputation i) {
+	public void deleteImputation(long id) {
 		// TODO Auto-generated method stub
-		imputationRepository.delete(i);
+		imputationRepository.delete(id);
 		imputationRepository.flush();
 	}
 

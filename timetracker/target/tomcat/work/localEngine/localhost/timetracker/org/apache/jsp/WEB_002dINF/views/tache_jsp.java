@@ -66,7 +66,7 @@ public final class tache_jsp extends org.apache.jasper.runtime.HttpJspBase
       out.write("</head>\n");
       out.write("<body>\n");
       out.write("\t<!-- Aller Ã  la gestion des tÃ¢ches -->\n");
-      out.write("\t<a href=\"./taches\" class=\"rLink\" tabindex=\"3\">Go to timesheet</a></label><label>\n");
+      out.write("\t<a href=\"./login\" class=\"rLink\">Go to timesheet</a></label><label>\n");
       out.write("\n");
       out.write("\t<!-- Affichage de toutes les tÃ¢ches et de leur gestion-->\n");
       out.write("\t<div id=\"jqgrid\">\n");

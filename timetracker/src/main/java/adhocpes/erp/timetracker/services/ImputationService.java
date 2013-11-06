@@ -13,7 +13,7 @@ import adhocpes.erp.timetracker.domain.Tache;
 public interface ImputationService {
 	
 	void insertImputation(Imputation i);
-	void deleteImputation(Imputation i);
+	void deleteImputation(long id);
 	void updateImputation(Imputation i);
 
 	Imputation getOne(long id);
