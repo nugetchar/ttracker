@@ -56,6 +56,15 @@ public class Tache{
 	@NotNull
 	private Projet projet;
 
+	public static String stringifyList(List<Tache> taches){
+		String res="[" + taches.get(0);
+		for(int i=1; i<taches.size(); ++i)
+			res += "," + taches.get(i);
+		res += "]";
+		return res;
+	}
+
+
 	public Tache(){
 		super();
 	}

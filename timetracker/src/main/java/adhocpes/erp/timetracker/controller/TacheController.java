@@ -39,7 +39,7 @@ public class TacheController {
 	@RequestMapping("")
 
 	public String listAll(){
-		return "tacheslist";
+		return "tache";
 	}
 
 	/**
@@ -48,11 +48,9 @@ public class TacheController {
 	@RequestMapping("/manage")
 	@ResponseBody
 	public String retrieveTaches(){
-		List<Tache> taches = tacheService.getAll();
-		String res="[" + taches.get(0);
-		for(int i=1; i<taches.size(); ++i)
-			res += "," + taches.get(i);
-		res += "]";
+		String res = "{\"total\":\"10\",\"page\":\"1\",\"records\":\"3\",\"rows\":" + 
+				Tache.stringifyList(tacheService.getAll());
+		res += "}";
 		return res;
 	}
 

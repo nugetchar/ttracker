@@ -1,10 +1,10 @@
-package org.apache.jsp.WEB_002dINF.views;
+package org.apache.jsp;
 
 import javax.servlet.*;
 import javax.servlet.http.*;
 import javax.servlet.jsp.*;
 
-public final class home_jsp extends org.apache.jasper.runtime.HttpJspBase
+public final class login_jsp extends org.apache.jasper.runtime.HttpJspBase
     implements org.apache.jasper.runtime.JspSourceDependent {
 
   private static final JspFactory _jspxFactory = JspFactory.getDefaultFactory();
@@ -50,6 +50,37 @@ public final class home_jsp extends org.apache.jasper.runtime.HttpJspBase
       out = pageContext.getOut();
       _jspx_out = out;
 
+      out.write("<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.01//EN\"\n");
+      out.write("  \"http://www.w3.org/TR/html4/strict.dtd\">\n");
+      out.write("<html>\n");
+      out.write("<head> \n");
+      out.write("<meta http-equiv=\"Content-Type\" content=\"text/html; charset=ISO-8859-1\">\n");
+      out.write("\n");
+      out.write("<link rel=\"stylesheet\" type=\"text/css\" href=\"r.css\" />\n");
+      out.write("<link rel=\"stylesheet\" type=\"text/css\" href=\"s.css\"/>\n");
+      out.write("<script type=\"text/javascript\" src=\"/js/script.js\"></script>\n");
+      out.write("</head>\n");
+      out.write("<body>\n");
+      out.write("\t<form class=\"box login\" action=\"/login\" method=\"GET\">\n");
+      out.write("\t\t<fieldset class=\"boxBody\">\n");
+      out.write("\t\t\t<label>Username</label> <input type=\"text\" tabindex=\"1\"\n");
+      out.write("\t\t\t\tplaceholder=\"login\" required> <label><a href=\"#\"\n");
+      out.write("\t\t\t\tclass=\"rLink\" tabindex=\"5\">Forget your password?</a> Password</label> <input\n");
+      out.write("\t\t\t\ttype=\"password\" tabindex=\"2\" placeholder=\"password\" required>\n");
+      out.write("\t\t\t<footer>\n");
+      out.write("\t\t\t\t<input type=\"submit\" class=\"btnLogin\" value=\"Login\" tabindex=\"4\">\n");
+      out.write("\t\t\t</footer>\n");
+      out.write("\t\t</fieldset>\n");
+      out.write("\t</form><br/>\n");
+      out.write("\t<form class=\"box login\" action=\"/login\" method=\"GET\">\n");
+      out.write("\t\t<fieldset class=\"boxBody\">\n");
+      out.write("\t\t\t<center>ou</center>\n");
+      out.write("\t\t\t<a href=\"/taches\"\n");
+      out.write("\t\t\t\tclass=\"rLink\" tabindex=\"5\">Aller Ã  la gestion des tÃ¢ches</a>\n");
+      out.write("\t\t</fieldset>\n");
+      out.write("\t</form>\n");
+      out.write("</body>\n");
+      out.write("</html>\n");
     } catch (Throwable t) {
       if (!(t instanceof SkipPageException)){
         out = _jspx_out;

@@ -4,7 +4,7 @@ import javax.servlet.*;
 import javax.servlet.http.*;
 import javax.servlet.jsp.*;
 
-public final class home_jsp extends org.apache.jasper.runtime.HttpJspBase
+public final class login_jsp extends org.apache.jasper.runtime.HttpJspBase
     implements org.apache.jasper.runtime.JspSourceDependent {
 
   private static final JspFactory _jspxFactory = JspFactory.getDefaultFactory();
@@ -50,6 +50,29 @@ public final class home_jsp extends org.apache.jasper.runtime.HttpJspBase
       out = pageContext.getOut();
       _jspx_out = out;
 
+      out.write("<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.01//EN\"\n");
+      out.write("  \"http://www.w3.org/TR/html4/strict.dtd\">\n");
+      out.write("<html>\n");
+      out.write("<head>\n");
+      out.write("<meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\" />\n");
+      out.write("<link rel=\"stylesheet\" type=\"text/css\" href=\"resources/css/reset.css\" />\n");
+      out.write("<link rel=\"stylesheet\" type=\"text/css\" href=\"resources/css/structure.css\"/>\n");
+      out.write("</head>\n");
+      out.write("<body>\n");
+      out.write("<form class=\"box login\" action=\"./login\" method=\"GET\">\n");
+      out.write("\t<fieldset class=\"boxBody\">\n");
+      out.write("\t  <label>Username</label>\n");
+      out.write("\t  <input type=\"text\" tabindex=\"1\" placeholder=\"Login\" required>\n");
+      out.write("\t  <label><a href=\"#\" class=\"rLink\" tabindex=\"5\">Forget your password?</a>Password</label>\n");
+      out.write("\t  <input type=\"password\" placeholder=\"Password\" tabindex=\"2\" required>\n");
+      out.write("\t</fieldset>\n");
+      out.write("\t<footer>\n");
+      out.write("\t\t<label><a href=\"./taches\" class=\"rLink\" tabindex=\"3\">Go to task management</a></label><label></label>\n");
+      out.write("\t  <input type=\"submit\" class=\"btnLogin\" value=\"Login\" tabindex=\"4\">\n");
+      out.write("\t</footer>\n");
+      out.write("</form>\n");
+      out.write("</body>\n");
+      out.write("</html>\n");
     } catch (Throwable t) {
       if (!(t instanceof SkipPageException)){
         out = _jspx_out;
