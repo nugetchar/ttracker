@@ -1,6 +1,11 @@
 package adhocpes.erp.timetracker.domain;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -33,24 +38,104 @@ public class Imputation implements Serializable{
 	@Column(name="imputationId")
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private long id;
-	
+
 	@NotNull
 	private double charge;
-	
+
 	@NotNull
 	@Type(type="org.jadira.usertype.dateandtime.joda.PersistentLocalDate")
 	@DateTimeFormat(pattern="yyyy-MM-dd")
 	private LocalDate jour;
 
+
+	private int month;
+	private int year;
+
 	@ManyToOne(cascade = { CascadeType.PERSIST, CascadeType.MERGE })
 	@JoinColumn(name="consultantId")
 	@NotNull
 	private Consultant consultant;
-	
+
 	@ManyToOne(cascade = { CascadeType.PERSIST, CascadeType.MERGE })
 	@JoinColumn(name="tacheId")
 	@NotNull
 	private Tache tache;
+
+
+	public static String stringifyImputationList(List<Imputation> imputations, int month, int year){
+		int cpt = 0;
+		String res = "[";
+		HashMap<Tache,List<Imputation>> taches = recupererTachesFromImputationList(imputations);
+		Set<Tache> tmp = taches.keySet();
+		List<Imputation> item;
+		Imputation imp;
+		for(Tache t : tmp){
+			res += "{ \"projet\":\""+t.getprojet().getNom()+"\",\"tache\":\""
+					+t.getNom()+"\",";
+			item = taches.get(t);
+			for(int i=1; i<32; ++i){
+				if((imp=getImputationForThisDay(i,item)) != null){
+					res += "\"" + i + "\":\"" + (int)imp.getCharge() + "\"";
+				}
+				else{
+					res +="\"" + i + "\":\"0\"";
+				}
+				if(i<31)
+					res +=",";
+			}
+
+			res += "}";
+			cpt ++;
+			if(cpt<tmp.size()-1)
+				res +=",";
+		}
+		res +="]";
+		return res;
+	}
+
+	private static Imputation getImputationForThisDay(int day,List<Imputation> imputations){
+		for(Imputation i : imputations){
+			if(i.getJour().getDayOfMonth() == day)
+				return i;
+		}
+		return null;
+	}
+
+	public static List<Imputation >createImputationsFromMapTacheConsultant(Consultant c, Tache t, Map<String, String> map){
+		List<Imputation> res = new ArrayList<Imputation>();
+		Set<String> keys;
+
+		int month = new Integer(map.get("month"));
+		int year = new Integer(map.get("year"));
+		Long i;
+
+		map.remove("projetId");
+		map.remove("tacheId");
+		map.remove("month");
+		map.remove("year");
+		keys = map.keySet();
+
+		String str;
+		for(String s : keys){
+			str = map.get(s).trim();
+			i = new Long(str);
+			if(!(i == 0))
+				res.add(new Imputation(i,new LocalDate(year,month,new Integer(s)),c,t));
+		}
+
+
+		return res;
+	}
+
+	private static HashMap<Tache,List<Imputation>> recupererTachesFromImputationList(List<Imputation> imputations){
+		HashMap<Tache,List<Imputation>> map = new HashMap<Tache,List<Imputation>>();
+		for(Imputation i : imputations){
+			if(map.get(i.getTache()) == null)
+				map.put(i.getTache(), new ArrayList<Imputation>());
+			map.get(i.getTache()).add(i);
+		}
+		return map;
+	}
 
 	public Imputation(){
 		super();
@@ -58,21 +143,20 @@ public class Imputation implements Serializable{
 
 	public Imputation(double charge, LocalDate jour, Consultant consultant, Tache tache){
 		this();
-		//TODO renvoyer une exception ˆ la place
+		//TODO renvoyer une exception Ã  la place
 		assert(Charge.isAValidCharge(charge));
 		this.charge = charge;
 		this.jour = jour;
 		this.consultant = consultant;
 		this.tache = tache;
+
+		this.month = jour.getMonthOfYear();
+		this.year = jour.getYear();
 	}
 
 	public void setCharge(double charge) {
 		assert(Charge.isAValidCharge(charge));
 		this.charge = charge;
-	}
-
-	public int getMonth(){
-		return jour.getMonthOfYear();
 	}
 
 	public LocalDate getJour() {
@@ -81,6 +165,8 @@ public class Imputation implements Serializable{
 
 	public void setJour(LocalDate jour) {
 		this.jour = jour;
+		this.month = jour.getMonthOfYear();
+		this.year = jour.getYear();
 	}
 
 	public Consultant getConsultant() {
@@ -155,4 +241,5 @@ public class Imputation implements Serializable{
 		return (other.charge == this.charge) && (other.consultant.equals(this.consultant)) && 
 				(other.jour.equals(this.jour)) && (other.tache.equals(this.tache));
 	}
+
 }

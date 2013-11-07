@@ -10,9 +10,9 @@
 <form class="box login" action="./login" method="GET">
 	<fieldset class="boxBody">
 	  <label>Username</label>
-	  <input id="login" type="text" tabindex="1" placeholder="Login" required>
+	  <input type="text" id="login" name="login" tabindex="1" placeholder="Login" required>
 	  <label><a href="#" class="rLink" tabindex="5">Forget your password?</a>Password</label>
-	  <input id="password" type="password" placeholder="Password" tabindex="2" required>
+	  <input type="password" id="password" name="password" placeholder="Password" tabindex="2" required>
 	</fieldset>
 	<footer>
 		<label><a href="./taches" class="rLink" tabindex="3">Go to task management</a></label><label></label>

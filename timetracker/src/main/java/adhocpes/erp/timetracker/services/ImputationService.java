@@ -7,23 +7,30 @@ import org.springframework.stereotype.Service;
 
 import adhocpes.erp.domain.Consultant;
 import adhocpes.erp.domain.Projet;
+import adhocpes.erp.service.ConsultantService;
 import adhocpes.erp.timetracker.domain.Imputation;
 import adhocpes.erp.timetracker.domain.Tache;
 
 public interface ImputationService {
 	
-	void insertImputation(Imputation i);
+	void insertOrEditImputation(Imputation i, long consultantId, long tacheId,
+			TacheService ts, ConsultantService cs);
 	void deleteImputation(long id);
-	void updateImputation(Imputation i);
 
+	void insertOrEditImputations(List<Imputation> imputations,
+			TacheService ts, ConsultantService cs);
+	
 	Imputation getOne(long id);
 	List<Imputation> getAll();
 	List<Imputation> getImputationsByProjet(Projet p);
 	List<Imputation> getImputationsByConsultant(Consultant c);
 	List<Imputation> getImputationsByTache(Tache t);
 
-	Imputation getByDateConsultant(LocalDate date, Consultant c);
-	Imputation getByDateProjet(LocalDate date, Projet p);
+	List<Imputation> getByDateConsultant(LocalDate date, Consultant c);
+	List<Imputation> getByDateProjet(LocalDate date, Projet p);
 	Imputation getByDateTache(LocalDate date, Tache t);
 
+	List<Imputation> getByMonthYearConsultant(int month, int year, Consultant c);
+	
+	Imputation getByTacheDateConsultant(Tache t, LocalDate d, Consultant c);
 }

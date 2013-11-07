@@ -26,7 +26,6 @@ jq(function() {
 				            	 align : "center",
 				            	 sortable : false,
 				            	 editable : true,
-				            	 editable : true,
 				            	 editrules : {
 				            		 required : true
 				            	 },
@@ -44,7 +43,6 @@ jq(function() {
 				            	 align : "center",
 				            	 sortable : false,
 				            	 editable : true,
-				            	 editable : true,
 				            	 editrules : {
 				            		 required : true
 				            	 },
@@ -57,7 +55,6 @@ jq(function() {
 				            	 width : 100,
 				            	 align : "center",
 				            	 sortable : false,
-				            	 editable : true,
 				            	 editable : true,
 				            	 editrules : {
 				            		 required : true
@@ -178,7 +175,7 @@ function addRow() {
 		url : "./taches/add",
 		editData : {},
 		recreateForm : true,
-		mtype: 'PUT',
+		mtype: 'POST',
 		ajaxEditOptions:{ contentType:"application/json" },
 		beforeShowForm : function(form) {
 		},
@@ -187,7 +184,7 @@ function addRow() {
 		serializeEditData:function (data) {
 			delete data.oper;
 			delete data.id;
-
+			
 			//Opérations sur la date
 			var date = data.date.split('.');
 			data.year = date[0];
@@ -196,10 +193,7 @@ function addRow() {
 			delete data.date;
 
 			//Opérations sur le projet
-			var proj = data.projet.replace('>','.');
-			proj = proj.replace('<','.');
-			proj = proj.split('.');
-			data.projetId = proj[0];
+			data.projetId = data.projet;
 			delete data.projet;
 
 			return JSON.stringify(data);
@@ -241,7 +235,7 @@ function editRow() {
 			url : "./taches/edit",
 			editData : {},
 			recreateForm : true,
-			mtype : 'POST',
+			mtype : 'PUT',
 			ajaxEditOptions:{ contentType:"application/json" },
 			beforeShowForm : function(form) {
 			},
@@ -256,10 +250,7 @@ function editRow() {
 				delete data.date;
 
 				//Opérations sur le projet
-				var proj = data.projet.replace('>','.');
-				proj = proj.replace('<','.');
-				proj = proj.split('.');
-				data.projetId = proj[0];
+				data.projetId = data.projet;
 				delete data.projet;
 
 				return JSON.stringify(data);

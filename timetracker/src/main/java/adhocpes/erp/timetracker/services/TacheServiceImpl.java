@@ -25,7 +25,7 @@ public class TacheServiceImpl implements TacheService {
 		
 	}
 	
-	public Tache insertTache(Tache t, long projetId, ProjetService serviceProj) {
+	public Tache insertOrEditTache(Tache t, long projetId, ProjetService serviceProj) {
 		// TODO Auto-generated method stub
 		Projet p = serviceProj.getById(projetId);
 		t.setprojet(p);
@@ -37,12 +37,6 @@ public class TacheServiceImpl implements TacheService {
 		tacheRepository.delete(id);
 	}
 
-	public void updateTache(Tache t, long projetId, ProjetService serviceProj) {
-		// TODO Auto-generated method stub
-		Projet p = serviceProj.getById(projetId);
-		t.setprojet(p);
-		tacheRepository.save(t);
-	}
 
 	public List<Tache> getAll() {
 		// TODO Auto-generated method stub
@@ -69,6 +63,15 @@ public class TacheServiceImpl implements TacheService {
 		return tacheRepository.findByImputation(i);
 	}
 	
+	
+	public List<Tache> getNonFinies(){
+		return tacheRepository.findNonFinies();
+	}
+
+	public Tache getByNomAndProjet(String nom, Projet p) {
+		// TODO Auto-generated method stub
+		return tacheRepository.findByNomAndProjet(nom,p);
+	}
 
 
 }

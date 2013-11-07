@@ -6,6 +6,7 @@ import flexjson.JSONSerializer;
 import java.util.List;
 
 import adhocpes.erp.service.ProjetService;
+import adhocpes.erp.domain.Consultant;
 import adhocpes.erp.domain.Projet;
 
 import org.apache.log4j.Logger;
@@ -30,6 +31,9 @@ public class ProjetController {
 	@Autowired
 	private ProjetService projetService;
 	
+	@Autowired
+	private Consultant current;
+	
 	public ProjetController(){}
 
 	@RequestMapping("/projets")
@@ -38,7 +42,19 @@ public class ProjetController {
 		String res="<select>";
 		List<Projet> projets = projetService.getAll();
 		for(Projet p : projets)
-			res += "<option value='"+p.getId()+">"+p.getNom()+"</option>";
+			res += "<option value='"+p.getId()+"'>"+p.getNom()+"</option>";
+		res += "</select>";
+		return res;
+	}
+	
+
+	@RequestMapping("/affectes")
+	@ResponseBody
+	public String getProjetsAffectes(){
+		String res="<select>";
+		List<Projet> projets = projetService.getProjetsAffectes(current) ;
+		for(Projet p : projets)
+			res += "<option value='"+p.getId()+"'>"+p.getNom()+"</option>";
 		res += "</select>";
 		return res;
 	}

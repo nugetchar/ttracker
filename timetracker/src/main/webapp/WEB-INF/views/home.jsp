@@ -4,21 +4,27 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-<link rel="stylesheet" type="text/css" href="resources/css/reset.css" />
-<link rel="stylesheet" type="text/css" href="resources/css/structure.css"/>
+<link rel="stylesheet" type="text/css" media="screen"
+	href="resources/css/jquery/ui-lightness/jquery-ui-1.8.6.custom.css" />
+<link rel="stylesheet" type="text/css" media="screen"
+	href="resources/css/jqgrid/ui.jqgrid.css" />
+<script type="text/javascript"
+	src="resources/js/jquery/jquery-1.4.4.min.js"></script>
+<script type="text/javascript"
+	src="resources/js/jquery/jquery-ui-1.8.6.custom.min.js"></script>
+<script type="text/javascript"
+	src="resources/js/jqgrid/grid.locale-en.js"></script>
+<script type="text/javascript"
+	src="resources/js/jqgrid/jquery.jqGrid.min.js"></script>
+
+<script src="resources/js/jqgrid_timesheet.js" type="text/javascript"></script>
 </head>
 <body>
-<form class="box login" action="./login" method="GET">
-	<fieldset class="boxBody">
-	  <label>Username</label>
-	  <input type="text" tabindex="1" placeholder="Login" required>
-	  <label><a href="#" class="rLink" tabindex="5">Forget your password?</a>Password</label>
-	  <input type="password" placeholder="Password" tabindex="2" required>
-	</fieldset>
-	<footer>
-		<label><a href="./taches" class="rLink" tabindex="3">Go to task management</a></label><label></label>
-	  <input type="submit" class="btnLogin" value="Login" tabindex="4">
-	</footer>
-</form>
+	<!-- Affichage de la feuille de temps-->
+	<div id="jqgrid">
+		<table id="grid"></table>
+		<div id="pager"></div>
+	</div>
+
 </body>
 </html>

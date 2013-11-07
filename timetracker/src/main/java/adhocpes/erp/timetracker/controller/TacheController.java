@@ -5,11 +5,11 @@ import flexjson.JSONSerializer;
 import flexjson.JSONDeserializer;
 
 import java.util.HashMap;
+import java.util.List;
 
 import adhocpes.erp.service.ProjetService;
 import adhocpes.erp.timetracker.services.TacheService;
 import adhocpes.erp.timetracker.domain.Tache;
-import adhocpes.erp.domain.Projet;
 
 import org.apache.log4j.Logger;
 import org.joda.time.LocalDate;
@@ -62,7 +62,7 @@ public class TacheController {
 	/**
 	 * @Brief ajout d'une tache
 	 */
-	@RequestMapping(value="/add", method=RequestMethod.PUT, headers ={"Accept=application/json"})
+	@RequestMapping(value="/add", method=RequestMethod.POST, headers ={"Accept=application/json"})
 	@ResponseBody
 	public String addTache(@RequestBody String s){
 		HashMap<String,String> r = (HashMap<String,String>) (new JSONDeserializer()).deserialize(s);
@@ -72,14 +72,14 @@ public class TacheController {
 
 		Tache t = new Tache(r.get("tache"),false,d);
 
-		t = tacheService.insertTache(t,new Long(r.get("projetId")), projetService);
+		t = tacheService.insertOrEditTache(t,new Long(r.get("projetId")), projetService);
 		return "{\"success\" : \"true\", \"newId\" : \""+t.getId()+"\"}";
 	}
 
 	/**
 	 * @Brief modification d'une tache
 	 */
-	@RequestMapping(value="/edit", method=RequestMethod.POST, headers ={"Accept=application/json"})
+	@RequestMapping(value="/edit", method=RequestMethod.PUT, headers ={"Accept=application/json"})
 	@ResponseBody
 	public String editTache(@RequestBody String s){
 		HashMap<String,String> r = (HashMap<String,String>) (new JSONDeserializer()).deserialize(s);
@@ -88,7 +88,7 @@ public class TacheController {
 
 		Tache t = new Tache(r.get("tache"),false,d);
 		t.setId(new Long(r.get("id")));
-		tacheService.updateTache(t,new Long(r.get("projetId")), projetService);
+		tacheService.insertOrEditTache(t,new Long(r.get("projetId")), projetService);
 		return "{\"success\" : \"true\"}";
 	}
 
@@ -101,5 +101,17 @@ public class TacheController {
 		HashMap<String,String> r = (HashMap<String,String>) (new JSONDeserializer()).deserialize(s);
 		tacheService.deleteTache(new Long(r.get("id")));
 		return "{\"success\" : \"true\"}";
+	}
+	
+	
+	@RequestMapping("/tachesNonFinies")
+	@ResponseBody
+	public String getTachesNonFinies(){
+		String res="<select>";
+		List<Tache> taches = tacheService.getNonFinies();
+		for(Tache t : taches)
+			res += "<option value='"+t.getId()+"'>"+t.getNom()+"</option>";
+		res += "</select>";
+		return res;
 	}
 }
