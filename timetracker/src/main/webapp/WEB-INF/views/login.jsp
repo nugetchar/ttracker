@@ -11,7 +11,7 @@
 	<fieldset class="boxBody">
 	  <label>Username</label>
 	  <input type="text" id="login" name="login" tabindex="1" placeholder="Login" required>
-	  <label><a href="#" class="rLink" tabindex="5">Forget your password?</a>Password</label>
+	  <label>Password</label>
 	  <input type="password" id="password" name="password" placeholder="Password" tabindex="2" required>
 	</fieldset>
 	<footer>

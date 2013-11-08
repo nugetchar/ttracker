@@ -16,12 +16,15 @@
 	src="resources/js/jqgrid/grid.locale-en.js"></script>
 <script type="text/javascript"
 	src="resources/js/jqgrid/jquery.jqGrid.min.js"></script>
+<link rel="stylesheet" type="text/css"
+	href="resources/css/structure.css" />
 
 <script src="resources/js/jqgrid_timesheet.js" type="text/javascript"></script>
 </head>
 <body>
 
-	<a href="./taches" class="rLink">Go to task management</a><br/>
+	<a href="./taches" class="rLink">Go to task management</a>
+	<br />
 	<a href="./affectations" class="rLink">Go to affectation management</a>
 	<!-- Affichage de la feuille de temps-->
 	<div id="jqgrid">
@@ -29,5 +32,8 @@
 		<div id="pager"></div>
 	</div>
 
+	<!--  <div id="print">
+		<input type="button" class="btnLogin" value="Print PDF" tabindex="5">
+	</div>-->
 </body>
 </html>

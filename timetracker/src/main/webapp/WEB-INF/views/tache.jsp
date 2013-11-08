@@ -7,6 +7,8 @@
 	href="resources/css/jquery/ui-lightness/jquery-ui-1.8.6.custom.css" />
 <link rel="stylesheet" type="text/css" media="screen"
 	href="resources/css/jqgrid/ui.jqgrid.css" />
+<link rel="stylesheet" type="text/css"
+	href="resources/css/structure.css" />
 <script type="text/javascript"
 	src="resources/js/jquery/jquery-1.4.4.min.js"></script>
 <script type="text/javascript"
@@ -20,7 +22,8 @@
 </head>
 <body>
 	<!-- Aller à  la gestion des imputations -->
-	<a href="." class="rLink">Go to timesheet</a><br/>
+	<a href="." class="rLink">Go to timesheet</a>
+	<br />
 	<a href="./affectations" class="rLink">Go to affectation management</a>
 	</label>
 	<label> <!-- Affichage de toutes les tÃ¢ches et de leur gestion-->
