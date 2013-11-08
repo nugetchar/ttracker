@@ -1,0 +1,138 @@
+package adhocpes.erp.timetracker.services.impl;
+
+import java.util.List;
+
+import org.joda.time.LocalDate;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import adhocpes.erp.domain.Consultant;
+import adhocpes.erp.domain.Projet;
+import adhocpes.erp.service.ConsultantService;
+import adhocpes.erp.timetracker.domain.Imputation;
+import adhocpes.erp.timetracker.domain.Tache;
+
+import adhocpes.erp.timetracker.repository.ImputationRepository;
+import adhocpes.erp.timetracker.services.ImputationService;
+import adhocpes.erp.timetracker.services.TacheService;
+
+@Service
+@Transactional
+public class ImputationServiceImpl implements ImputationService {
+
+	@Autowired
+	private ImputationRepository imputationRepository;
+
+	public ImputationServiceImpl() {
+	}
+
+	public void insertOrEditImputation(Imputation i, long consultantId,
+			long tacheId, TacheService ts, ConsultantService cs) {
+
+		int index;
+
+		//On récupère la tache
+		Tache t = ts.getOne(tacheId);
+
+		//On récupère le consultant
+		Consultant c = cs.getById(consultantId);
+
+		//On set les attributs à l'imputations
+		i.setTache(t);
+		i.setConsultant(c);
+
+		//On vérifie ensuite si l'imputation existait déjà en BD
+		if ((index = t.hasImputSameDateConsultantProjet(i)) != -1){
+			//Si elle existait on met à jour son existante
+			t.getImputations().get(index).setCharge(i.getCharge());
+
+			//et on la remplace par l'existante
+			i = t.getImputations().get(index);
+		}
+		imputationRepository.save(i);
+	}
+
+	/**
+	 * @Brief supprimer une imputation dont on est certain de l'existence
+	 */
+	public void deleteImputation(long id) {
+		// TODO Auto-generated method stub
+		
+		imputationRepository.delete(id);
+		imputationRepository.flush();
+		System.out.println("Suppression ok");
+	}
+
+	/**
+	 * @Brief supprimer une imputation dont on a pas l'id
+	 */
+	public void deleteImputation(Imputation i){
+		//Récupérer l'id
+		long id = getIdByTacheDateConsultant(i.getTache(),i.getJour(),i.getConsultant());
+		System.out.println("Id à supprimer: " + id);
+		//Si l'un des trois attributs (tache, jour, consultant) était faux, on ne supprime rien
+		if(id>0)
+			deleteImputation(id);
+	}
+
+	public void insertOrEditImputations(List<Imputation> imputations,
+			TacheService ts, ConsultantService cs) {
+		for (Imputation i : imputations)
+			insertOrEditImputation(i, i.getConsultant().getId(), i.getTache()
+					.getId(), ts, cs);
+	}
+
+	public Imputation getOne(long id) {
+		// TODO Auto-generated method stub
+		return imputationRepository.findOne(id);
+	}
+
+	public List<Imputation> getAll() {
+		// TODO Auto-generated method stub
+		return imputationRepository.findAll();
+	}
+
+	public List<Imputation> getImputationsByProjet(Projet p) {
+		// TODO Auto-generated method stub
+		return imputationRepository.findByProjet(p);
+	}
+
+	public List<Imputation> getImputationsByConsultant(Consultant c) {
+		// TODO Auto-generated method stub
+		return imputationRepository.findByConsultant(c);
+	}
+
+	public List<Imputation> getImputationsByTache(Tache t) {
+		// TODO Auto-generated method stub
+		return imputationRepository.findByTache(t);
+	}
+
+	public List<Imputation> getByDateConsultant(LocalDate date, Consultant c) {
+		// TODO Auto-generated method stub
+		return imputationRepository.findByDateConsultant(date, c);
+	}
+
+	public List<Imputation> getByDateProjet(LocalDate date, Projet p) {
+		// TODO Auto-generated method stub
+		return imputationRepository.findByDateProjet(date, p);
+	}
+
+	public Imputation getByDateTache(LocalDate date, Tache t) {
+		// TODO Auto-generated method stub
+		return imputationRepository.findByDateTache(date, t);
+	}
+
+
+	public Imputation getByTacheDateConsultant(Tache t, LocalDate d,
+			Consultant c) {
+		// TODO Auto-generated method stub
+		return imputationRepository.findByTacheDateConsultant(t,d,c);
+	}
+
+	public long getIdByTacheDateConsultant(Tache t, LocalDate d, Consultant c) {
+		// TODO Auto-generated method stub
+		return imputationRepository.findIdByTacheDateConsultant(t, d, c);
+	}
+
+}

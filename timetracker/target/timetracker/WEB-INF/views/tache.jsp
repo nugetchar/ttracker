@@ -20,7 +20,8 @@
 </head>
 <body>
 	<!-- Aller à  la gestion des imputations -->
-	<a href="./login" class="rLink">Go to timesheet</a>
+	<a href="." class="rLink">Go to timesheet</a><br/>
+	<a href="./affectations" class="rLink">Go to affectation management</a>
 	</label>
 	<label> <!-- Affichage de toutes les tÃ¢ches et de leur gestion-->
 		<div id="jqgrid">

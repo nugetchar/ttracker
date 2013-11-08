@@ -1,0 +1,169 @@
+package adhocpes.erp.timetracker.domain;
+
+import java.util.List;
+
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.validation.constraints.NotNull;
+
+import org.hibernate.annotations.Type;
+import org.joda.time.DateTime;
+
+import adhocpes.erp.domain.Projet;
+
+/**
+ * 
+ * @author toledo
+ *
+ */
+@Entity(name="T_Tache")
+public class Tache{
+
+	@Id
+	@Column(name="tacheId")
+	@GeneratedValue(strategy=GenerationType.AUTO)
+	private long id;
+
+	@NotNull
+	private String nom;
+
+	@NotNull
+	private boolean fini;
+
+	@NotNull
+	@Type(type="org.jadira.usertype.dateandtime.joda.PersistentDateTime")
+	private DateTime dateDebut;
+
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "tache", cascade = { CascadeType.ALL })
+	private List<Imputation> imputations;
+
+
+	@ManyToOne(cascade = {CascadeType.PERSIST})
+	@JoinColumn(nullable = true, name="projetId")
+	@NotNull
+	private Projet projet;
+
+	public Tache(){
+		super();
+	}
+
+	public Tache(String nom, boolean fini) {
+		this();
+		this.nom = nom;
+		this.fini = fini;
+		this.dateDebut = today();
+	}
+
+	public Tache(String nom, boolean fini, DateTime date_debut) {
+		this(nom,fini);
+		if(date_debut != null)
+			this.dateDebut = date_debut;
+	}
+
+	public Tache(String nom, boolean fini, DateTime date_debut, Projet projet, List<Imputation> imputations){
+		this(nom,fini,date_debut);
+		this.imputations = imputations;
+		this.projet = projet;
+	}
+
+	private DateTime today(){
+		return DateTime.now();
+	}
+
+	public String getNom() {
+		return nom;
+	}
+
+	public void setNom(String nom) {
+		this.nom = nom;
+	}
+
+	public boolean isFini() {
+		return fini;
+	}
+
+	public void setFini(boolean fini) {
+		this.fini = fini;
+	}
+
+	public DateTime getDate_debut() {
+		return dateDebut;
+	}
+
+	public void setDate_debut(DateTime dateDebut) {
+		this.dateDebut = dateDebut;
+	}
+
+	public List<Imputation> getImputations(){
+		return imputations;
+	}
+
+	public void setImputations(List<Imputation> imputations){
+		this.imputations = imputations;
+	}
+
+	public Projet getprojet(){
+		return projet;
+	}
+
+	public void setprojet(Projet p){
+		this.projet = p;
+	}
+
+	public String toString(){
+		return "nom: " + this.nom + ". fini: " + this.fini + 
+				". date d�but: " + this.dateDebut + ".";
+	}
+
+
+	public long getId() {
+		return id;
+	}
+
+	public void setId(long id) {
+		this.id = id;
+	}
+
+	//	@Override
+	//	public int hashCode() {
+	//		final int prime = 31;
+	//		int result = 1;
+	//		result = prime * result
+	//				+ ((dateDebut == null) ? 0 : dateDebut.hashCode());
+	//		result = prime * result + (fini ? 1231 : 1237);
+	//		result = prime * result + (int) (id ^ (id >>> 32));
+	//		result = prime * result
+	//				+ ((imputations == null) ? 0 : imputations.hashCode());
+	//		result = prime * result + ((nom == null) ? 0 : nom.hashCode());
+	//		result = prime * result + ((projet == null) ? 0 : projet.hashCode());
+	//		return result;
+	//	}
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj){
+			System.out.println("this == obj");
+			return true;
+		}
+		if (obj == null){
+			System.out.println("this == obj");
+			return false;
+		}
+		if(!(obj instanceof  Tache)){
+			System.out.println("this == obj");
+			return false;
+		}
+		Tache other = (Tache) obj;
+		
+		return (other.nom.equals(this.nom)) && (other.fini == this.fini) && 
+				(other.dateDebut.equals(this.dateDebut)) && (other.projet.equals(this.projet));
+	}
+
+}

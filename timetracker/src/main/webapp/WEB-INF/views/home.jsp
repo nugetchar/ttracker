@@ -20,6 +20,9 @@
 <script src="resources/js/jqgrid_timesheet.js" type="text/javascript"></script>
 </head>
 <body>
+
+	<a href="./taches" class="rLink">Go to task management</a><br/>
+	<a href="./affectations" class="rLink">Go to affectation management</a>
 	<!-- Affichage de la feuille de temps-->
 	<div id="jqgrid">
 		<table id="grid"></table>

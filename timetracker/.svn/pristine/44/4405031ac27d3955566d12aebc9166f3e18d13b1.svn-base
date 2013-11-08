@@ -1,0 +1,155 @@
+package adhocpes.erp.timetracker.domain;
+
+import java.io.Serializable;
+
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.validation.constraints.NotNull;
+
+import org.hibernate.annotations.Type;
+import org.joda.time.DateTime;
+
+import adhocpes.erp.domain.Consultant;
+
+/**
+ * 
+ * @author toledo
+ *
+ */
+@Entity(name="T_Imputation")
+public class Imputation implements Serializable{
+
+	private static final long serialVersionUID = -6512600497880831081L;
+
+	@Id
+	@Column(name="imputationId")
+	@GeneratedValue(strategy=GenerationType.AUTO)
+	private long id;
+	
+	@NotNull
+	private double charge;
+	
+	@NotNull
+	@Type(type="org.jadira.usertype.dateandtime.joda.PersistentDateTime")
+	private DateTime jour;
+
+	@ManyToOne(cascade = { CascadeType.PERSIST, CascadeType.MERGE })
+	@JoinColumn(name="consultantId")
+	@NotNull
+	private Consultant consultant;
+	
+	@ManyToOne(cascade = { CascadeType.PERSIST, CascadeType.MERGE })
+	@JoinColumn(name="tacheId")
+	@NotNull
+	private Tache tache;
+
+	public Imputation(){
+		super();
+	}
+
+	public Imputation(double charge, DateTime jour, Consultant consultant, Tache tache){
+		this();
+		//TODO renvoyer une exception ˆ la place
+		assert(Charge.isAValidCharge(charge));
+		this.charge = charge;
+		this.jour = jour;
+		this.consultant = consultant;
+		this.tache = tache;
+	}
+
+	public void setCharge(double charge) {
+		assert(Charge.isAValidCharge(charge));
+		this.charge = charge;
+	}
+
+	public int getMonth(){
+		return jour.getMonthOfYear();
+	}
+
+	public DateTime getJour() {
+		return jour;
+	}
+
+	public void setJour(DateTime jour) {
+		this.jour = jour;
+	}
+
+	public Consultant getConsultant() {
+		return consultant;
+	}
+
+	public void setConsultant(Consultant consultant) {
+		this.consultant = consultant;
+	}
+
+	public Tache getTache() {
+		return tache;
+	}
+
+	public void setTache(Tache tache) {
+		this.tache = tache;
+	}
+
+	public double getCharge() {
+		return charge;
+	}
+
+	public String toString(){
+		return "ID: " + id +  ", Jour: " + jour + ", charge: " + charge;
+	}
+
+	public long getId() {
+		return id;
+	}
+
+	public void setId(long id) {
+		this.id = id;
+	}
+
+	private static class Charge {
+
+		private static double[] charges = {1,0.5,0.25,0};
+
+		public static boolean isAValidCharge(double c) {
+			for(double d : charges){
+				if(c == d)
+					return true;
+			}
+			return false;
+		}
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		long temp;
+		temp = Double.doubleToLongBits(charge);
+		result = prime * result + (int) (temp ^ (temp >>> 32));
+		result = prime * result
+				+ ((consultant == null) ? 0 : consultant.hashCode());
+		result = prime * result + (int) (id ^ (id >>> 32));
+		result = prime * result + ((jour == null) ? 0 : jour.hashCode());
+		result = prime * result + ((tache == null) ? 0 : tache.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Imputation other = (Imputation) obj;
+		return (other.charge == this.charge) && (other.consultant.equals(this.consultant)) && 
+				(other.jour.equals(this.jour)) && (other.tache.equals(this.tache));
+	}
+}

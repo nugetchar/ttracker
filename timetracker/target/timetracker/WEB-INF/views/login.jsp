@@ -15,8 +15,9 @@
 	  <input type="password" id="password" name="password" placeholder="Password" tabindex="2" required>
 	</fieldset>
 	<footer>
-		<label><a href="./taches" class="rLink" tabindex="3">Go to task management</a></label><label></label>
-	  <input type="submit" class="btnLogin" value="Login" tabindex="4">
+		<label><a href="./taches" class="rLink" tabindex="3">Go to task management</a><br/>
+		<a href="./affectations" class="rLink" tabindex="4">Go to affectation management</a></label><label></label>
+	  <input type="submit" class="btnLogin" value="Login" tabindex="5">
 	</footer>
 </form>
 </body>

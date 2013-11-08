@@ -1,0 +1,22 @@
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ page session="false"%>
+<html>
+<head>
+<link rel="stylesheet" type="text/css" href="viewResources/reset.css">
+<link rel="stylesheet" type="text/css"
+	href="viewResources/structure.css">
+</head>
+<body>
+	<form class="box login" target="/login">
+		<fieldset class="boxBody">
+			<label>Username</label> <input type="text" tabindex="1"
+				placeholder="login" required> <label><a href="#"
+				class="rLink" tabindex="5">Forget your password?</a> Password</label> <input
+				type="password" tabindex="2" placeholder="password" required>
+			<footer>
+				<input type="submit" class="btnLogin" value="Login" tabindex="4">
+			</footer>
+		</fieldset>
+	</form>
+</body>
+</html>
